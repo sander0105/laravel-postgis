@@ -145,4 +145,18 @@ class PostgisGrammar extends PostgresGrammar
             $typmod
         );
     }
+
+    /**
+     * Compile a gist index key command.
+     *
+     * @param  \Bosnadev\Database\Schema\Blueprint  $blueprint
+     * @param  \Illuminate\Support\Fluent  $command
+     * @return string
+     */
+    public function compileGist(Blueprint $blueprint, Fluent $command)
+    {
+        $columns = $this->columnize($command->columns);
+
+        return sprintf('CREATE INDEX %s ON %s USING GIST(%s)', $command->index, $this->wrapTable($blueprint), $columns);
+    }
 }
