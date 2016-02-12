@@ -114,4 +114,16 @@ class Blueprint extends \Bosnadev\Database\Schema\Blueprint
         return $this->addCommand('disablePostgis');
     }
 
+    /**
+     * Specify an index for the table.
+     *
+     * @param  string|array  $columns
+     * @param  string  $name
+     * @return \Illuminate\Support\Fluent
+     */
+    public function gist($columns, $name = null)
+    {
+        return $this->indexCommand('gist', $columns, $name);
+    }
+
 }
